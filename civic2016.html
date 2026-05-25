@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Civics & Ethics Final Exam | Wollo University</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e9eff5 0%, #d9e2ec 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            color: #1e2a3e;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            overflow: hidden;
+            backdrop-filter: blur(0px);
+            transition: all 0.2s;
+        }
+
+        /* header */
+        .exam-header {
+            background: #1e3c2c;
+            color: white;
+            padding: 1.8rem 2rem;
+            text-align: center;
+            border-bottom: 6px solid #e6b422;
+        }
+
+        .exam-header h1 {
+            font-size: 1.9rem;
+            letter-spacing: -0.5px;
+            font-weight: 600;
+        }
+
+        .exam-header p {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-top: 0.5rem;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        .badge {
+            background: #2b4b38;
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        /* main */
+        .quiz-main {
+            padding: 2rem 2rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+            border-left: 7px solid #e6b422;
+            padding-left: 1rem;
+            color: #1e3c2c;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border-radius: 1.2rem;
+            margin-bottom: 1.6rem;
+            padding: 1.3rem 1.5rem;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 1px solid #e2edf2;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            color: #0f2c1f;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-top: 0.5rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            padding: 0.4rem 0.6rem;
+            border-radius: 12px;
+            transition: background 0.1s;
+        }
+
+        .option:hover {
+            background: #f4f9fe;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-top: 0.2rem;
+            accent-color: #1e3c2c;
+            transform: scale(1.05);
+            flex-shrink: 0;
+        }
+
+        .truefalse-group {
+            display: flex;
+            gap: 1.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .truefalse-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        hr {
+            margin: 0.7rem 0;
+            border-color: #e9edf2;
+        }
+
+        /* fill blank */
+        .fill-input {
+            width: 100%;
+            max-width: 450px;
+            padding: 0.7rem 1rem;
+            border-radius: 60px;
+            border: 1.5px solid #cbdbe6;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+        .fill-input:focus {
+            outline: none;
+            border-color: #1e3c2c;
+            box-shadow: 0 0 0 3px rgba(30,60,44,0.2);
+        }
+
+        /* buttons */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 2rem 0 1rem;
+        }
+        button {
+            background: #1e3c2c;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        button:hover {
+            background: #133024;
+            transform: translateY(-2px);
+        }
+        .reset-btn {
+            background: #5a626e;
+        }
+        .reset-btn:hover {
+            background: #3f4a50;
+        }
+
+        .result-area {
+            background: #f0f4f0;
+            border-radius: 1.5rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid #cfe1cf;
+        }
+        .score-circle {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: #1e3c2c;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            color: #e6b422;
+            margin-bottom: 1rem;
+        }
+        .feedback-list {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        .feedback-item {
+            border-bottom: 1px solid #cddfcd;
+            padding: 0.4rem 0;
+        }
+        .correct-feedback {
+            color: #1f6d1f;
+        }
+        .wrong-feedback {
+            color: #b13b2d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.75rem;
+            background: #fafbfd;
+            border-top: 1px solid #e2e8f0;
+            color: #4a5b6e;
+        }
+        @media (max-width: 650px) {
+            .quiz-main {
+                padding: 1rem;
+            }
+            .question-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="exam-header">
+        <h1>📘 Moral & Citizenship Education</h1>
+        <p>Wollo University | College of Social Sciences | Final Exam (Model)</p>
+        <div class="badge-row">
+            <span class="badge">📅 February 2023</span>
+            <span class="badge">⏱ 1:00 hr</span>
+            <span class="badge">📝 Weight: 50%</span>
+        </div>
+    </div>
+    <div class="quiz-main">
+        <div class="section-title">📌 PART I: True or False (1.5 pts each)</div>
+        <div id="truefalse-container"></div>
+
+        <div class="section-title">🔄 PART II: Matching (1.5 pts each)</div>
+        <div id="matching-container"></div>
+
+        <div class="section-title">🎯 PART III: Multiple Choice (1.5 pts each)</div>
+        <div id="mcq-container"></div>
+
+        <div class="section-title">✍️ PART IV: Fill in the Blanks (2 pts each)</div>
+        <div id="fill-container"></div>
+
+        <div class="action-bar">
+            <button id="submitBtn">✅ Submit Exam</button>
+            <button id="resetBtn" class="reset-btn">🔄 Reset Answers</button>
+        </div>
+
+        <div id="resultPanel" class="result-area" style="display: none;">
+            <div class="score-circle" id="scoreDisplay">0 / 0</div>
+            <p id="resultMessage"></p>
+            <div id="detailedFeedback" class="feedback-list"></div>
+        </div>
+    </div>
+    <footer>Based on FDRE constitution, MCED 1011 modules (Unit 2: Ethical theories, Unit 4: State, Gov't, Citizenship) | Academic use only</footer>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // QUESTION BANK (derived from exam images + modules unit 2 & 4)
+    // --------------------------------------------------------------
+    
+    // ----- TRUE/FALSE (10 questions) -----
+    const trueFalseData = [
+        { text: "Government is unique from other organizations by its comprehensive rule which is applied to all members of society.", isTrue: true },
+        { text: "There is uniformity of laws in acquiring citizenship status which governs all states of the world.", isTrue: false },
+        { text: "According to Divine command theory, if something is wrong, then the only reason it is wrong is that God commands us not to do it.", isTrue: true },
+        { text: "Amending the constitution is power and functions of executive organ of government.", isTrue: false },
+        { text: "Jus Soli is citizenship status of a particular State by born in the territorial administration of that country.", isTrue: true },
+        { text: "According to deontological ethical theory morality or immorality of an action is determined by its end results.", isTrue: false },
+        { text: "In a federal state structure, all authority to make laws is vested on the central government of country.", isTrue: false },
+        { text: "Internal Sovereignty of a State refers to the complete independence and equality of the state in its relations with other states.", isTrue: false },
+        { text: "One feature of a unitary state structure is that, the local units and their existence is mainly dependent on the interest of the central government.", isTrue: true },
+        { text: "According to Kant, a maxim is a subjective principle of action or working rule which we are morally bound or obligated to obey.", isTrue: true }
+    ];
+
+    // ----- MATCHING (column A with descriptions based on Ross's duties) -----
+    const matchingData = [
+        { term: "Duties of reparation", matchDesc: "Give compensations for wrongful acts" },
+        { term: "Duties of fidelity", matchDesc: "Not to lie and keep promises" },
+        { term: "Duties of justice", matchDesc: "Distribute benefits and burdens fairly" },  // alternative but correct from module
+        { term: "Duties of beneficence", matchDesc: "Improve the life conditions of others" },
+        { term: "Duties of non-maleficence", matchDesc: "Avoid harming others" }   // added because exam paper included 5 items
+    ];
+    // for matching we will show drag? Instead simpler: dropdown select per item.
+    // options array for matching.
+    const matchingOptionsList = [
+        "Give compensations for wrongful acts",
+        "Not to lie and keep promises",
+        "Distribute benefits and burdens fairly",
+        "Improve the life conditions of others",
+        "Avoid harming others"
+    ];
+
+    // ----- MULTIPLE CHOICE (12 questions - from exam sheet + modules) -----
+    const mcqData = [
+        { text: "Which of the following is not categorized in pre-state social arrangement (formation)?", options: ["Family", "Marketing", "Clans", "Community"], correct: 1 },
+        { text: "From the following alternatives, which one is the best definition of virtues?", options: ["Excellence", "Self-valuation", "Temperance", "Patience"], correct: 0 },
+        { text: "______ is deliberate dropping of one’s citizenship.", options: ["Deprivation", "Lapse", "Renunciation", "Substitution"], correct: 2 },
+        { text: "In ______ government, the King or queen is ceremonial head of the state.", options: ["Constitutional government", "Constitutional monarchy", "Totalitarianism government", "Traditional monarchy"], correct: 1 },
+        { text: "Which theory of State formation best goes in line with the idea of Democracy?", options: ["Divine theory", "Social contract theory", "Force theory", "Marxist theory"], correct: 1 },
+        { text: "Which of the following is categorized under the advantage of unitary state?", options: ["Best for large and heterogeneous population", "Bureaucratic administration", "Uniformity of laws", "All"], correct: 2 },
+        { text: "Suppose, an Ethiopian pregnant woman goes to America, and the child was born in America, so which one is correct?", options: ["The child has American citizenship by blood", "The child has American citizenship by jus soli", "The child is Ethiopian by blood", "B and C"], correct: 3 },
+        { text: "Which theory on the origin of state posited that state is the artificial creations of the agreement and consent of the people?", options: ["Force theory", "Social Contract", "Divine Right", "Marxism theory"], correct: 1 },
+        { text: "Suppose Mr. X unveils the national secret of his country. As a result his citizenship is nullified by the government. This way of losing citizenship is called:", options: ["Lapse", "Renunciation", "Deprivation", "Expiration"], correct: 2 },
+        { text: "Which of the following organs of government is in charge of making laws?", options: ["Executive", "Legislative", "Judiciary", "State council"], correct: 1 },
+        { text: "For deontological ethics the standard of moral judgment and the principle of morality is:", options: ["Pleasure", "Consequence", "Duty", "Utility"], correct: 2 },
+        { text: "One of the following is the feature of Kant’s categorical imperatives.", options: ["It is universal moral principle on which we ought to act", "It doesn’t give respect to humanity for our end", "Enables to treat other persons as a means to our end", "Shows that our actions are not guided by the moral principles"], correct: 0 }
+    ];
+
+    // ----- FILL IN THE BLANKS (4 items - from exam image) -----
+    const fillData = [
+        { text: "________ is one of mode of losing citizenship when a citizen stays outside for a long period of time continuously.", correctKeywords: ["lapse", "expiration", "lapse/expiration"] },
+        { text: "________ is a supreme, complete and legal authority that does not recognize any power or authority above and over it.", correctKeywords: ["sovereignty"] },
+        { text: "________ theory of state claims that the state is gradually and slowly evolved out of earlier forms of settled human communities, such as the family, the clan and the tribe.", correctKeywords: ["evolutionary", "natural", "anthropological", "evolutionary theory"] },
+        { text: "________ is a political association with effective sovereignty over a geographic area and representing a population.", correctKeywords: ["state"] }
+    ];
+
+    // ------------------- Helper: Render all sections -------------------
+    function renderExam() {
+        // true false
+        const tfContainer = document.getElementById('truefalse-container');
+        tfContainer.innerHTML = '';
+        trueFalseData.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">${idx+1}. ${item.text}</div>
+                <div class="truefalse-group">
+                    <label><input type="radio" name="tf_${idx}" value="true"> ✅ True</label>
+                    <label><input type="radio" name="tf_${idx}" value="false"> ❌ False</label>
+                </div>
+            `;
+            tfContainer.appendChild(card);
+        });
+
+        // matching (dropdown per row)
+        const matchContainer = document.getElementById('matching-container');
+        matchContainer.innerHTML = '';
+        matchingData.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">Match: ${item.term}</div>
+                <select id="match_${idx}" class="fill-input" style="max-width:100%">
+                    <option value="">-- Select correct definition --</option>
+                    ${matchingOptionsList.map(opt => `<option value="${opt.replace(/"/g, '&quot;')}">${opt}</option>`).join('')}
+                </select>
+            `;
+            matchContainer.appendChild(card);
+        });
+
+        // MCQ
+        const mcqContainer = document.getElementById('mcq-container');
+        mcqContainer.innerHTML = '';
+        mcqData.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            let optionsHtml = `<div class="options">`;
+            item.options.forEach((opt, optIdx) => {
+                optionsHtml += `<label class="option"><input type="radio" name="mcq_${idx}" value="${optIdx}"> ${opt}</label>`;
+            });
+            optionsHtml += `</div>`;
+            card.innerHTML = `<div class="question-text">${idx+16}. ${item.text}</div>${optionsHtml}`;
+            mcqContainer.appendChild(card);
+        });
+
+        // Fill blanks
+        const fillContainer = document.getElementById('fill-container');
+        fillContainer.innerHTML = '';
+        fillData.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">${idx+29}. ${item.text}</div>
+                <input type="text" id="fill_${idx}" class="fill-input" placeholder="Type your answer">
+            `;
+            fillContainer.appendChild(card);
+        });
+    }
+
+    // evaluation function
+    function evaluateExam() {
+        let totalPoints = 0;
+        let earnedPoints = 0;
+        const feedbackArr = [];
+
+        // 1) True/False (10 items *1.5 =15pts)
+        for (let i = 0; i < trueFalseData.length; i++) {
+            totalPoints += 1.5;
+            const radios = document.getElementsByName(`tf_${i}`);
+            let selected = null;
+            for (let r of radios) if (r.checked) { selected = r.value; break; }
+            const isCorrect = (selected === 'true' && trueFalseData[i].isTrue) || (selected === 'false' && !trueFalseData[i].isTrue);
+            if (selected && isCorrect) earnedPoints += 1.5;
+            const userAnswer = selected ? (selected === 'true' ? 'True' : 'False') : 'Not answered';
+            const correctAns = trueFalseData[i].isTrue ? 'True' : 'False';
+            feedbackArr.push({
+                q: `TF ${i+1}: ${trueFalseData[i].text.substring(0,70)}...`,
+                correct: isCorrect,
+                user: userAnswer,
+                answer: correctAns,
+                points: isCorrect ? 1.5 : 0
+            });
+        }
+
+        // 2) Matching (5 items *1.5 =7.5)
+        for (let i = 0; i < matchingData.length; i++) {
+            totalPoints += 1.5;
+            const selectEl = document.getElementById(`match_${i}`);
+            const selectedVal = selectEl ? selectEl.value : '';
+            const expected = matchingData[i].matchDesc;
+            let isMatch = (selectedVal === expected);
+            // for 'duties of justice' we defined "Distribute benefits and burdens fairly" in options
+            if (matchingData[i].term === "Duties of justice" && selectedVal === "Distribute benefits and burdens fairly") isMatch = true;
+            if (isMatch) earnedPoints += 1.5;
+            feedbackArr.push({
+                q: `Matching: ${matchingData[i].term}`,
+                correct: isMatch,
+                user: selectedVal || "(none)",
+                answer: expected,
+                points: isMatch ? 1.5 : 0
+            });
+        }
+
+        // 3) MCQ (12 items *1.5 =18)
+        for (let i = 0; i < mcqData.length; i++) {
+            totalPoints += 1.5;
+            const selectedRadio = document.querySelector(`input[name="mcq_${i}"]:checked`);
+            const selectedVal = selectedRadio ? parseInt(selectedRadio.value) : -1;
+            const isCorrect = (selectedVal === mcqData[i].correct);
+            if (isCorrect) earnedPoints += 1.5;
+            const userText = selectedVal !== -1 ? mcqData[i].options[selectedVal] : "No answer";
+            feedbackArr.push({
+                             q: `MCQ ${i+16}: ${mcqData[i].text.substring(0,70)}`,
+                correct: isCorrect,
+                user: userText,
+                answer: mcqData[i].options[mcqData[i].correct],
+                points: isCorrect ? 1.5 : 0
+            });
+        }
+
+        // 4) Fill in blanks (4 items *2 =8)
+        for (let i = 0; i < fillData.length; i++) {
+            totalPoints += 2;
+            const inputField = document.getElementById(`fill_${i}`);
+            let userAnswer = inputField ? inputField.value.trim().toLowerCase() : '';
+            const keywords = fillData[i].correctKeywords;
+            let matched = false;
+            for (let kw of keywords) {
+                if (userAnswer.includes(kw.toLowerCase()) || kw.toLowerCase() === userAnswer) {
+                    matched = true;
+                    break;
+                }
+            }
+            if (matched && userAnswer !== "") {
+                earnedPoints += 2;
+            }
+            feedbackArr.push({
+                q: `Fill ${i+29}: ${fillData[i].text}`,
+                correct: matched && userAnswer !== "",
+                user: userAnswer || "(blank)",
+                answer: keywords[0],
+                points: (matched && userAnswer !== "") ? 2 : 0
+            });
+        }
+
+        const percentage = (earnedPoints / totalPoints) * 100;
+        const scoreMsg = `You scored ${earnedPoints} out of ${totalPoints} points (${percentage.toFixed(1)}%).`;
+        let gradeMsg = "";
+        if (percentage >= 80) gradeMsg = "🌟 Excellent! You have mastered the concepts of Ethics and State/Citizenship.";
+        else if (percentage >= 60) gradeMsg = "👍 Good work! Review deontological and federalism concepts for deeper understanding.";
+        else if (percentage >= 45) gradeMsg = "📚 Fair. Revisit modules on Kant's categorical imperative, sovereignty and citizenship acquisition.";
+        else gradeMsg = "📖 Needs improvement. Focus on normative ethics, state structure, and citizenship modes.";
+
+        // show result panel
+        const resultPanel = document.getElementById('resultPanel');
+        resultPanel.style.display = 'block';
+        document.getElementById('scoreDisplay').innerHTML = `${earnedPoints} / ${totalPoints}`;
+        document.getElementById('resultMessage').innerHTML = `${scoreMsg}<br>${gradeMsg}`;
+        
+        const detailDiv = document.getElementById('detailedFeedback');
+        detailDiv.innerHTML = `<strong>📋 Detailed feedback:</strong>`;
+        feedbackArr.forEach(fb => {
+            const statusClass = fb.correct ? 'correct-feedback' : 'wrong-feedback';
+            const statusSym = fb.correct ? '✅' : '❌';
+            detailDiv.innerHTML += `<div class="feedback-item ${statusClass}">${statusSym} ${fb.q}<br>  Your answer: ${fb.user} | Correct: ${fb.answer} | Points: ${fb.points}</div>`;
+        });
+        window.scrollTo({ top: document.getElementById('resultPanel').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function resetAllAnswers() {
+        // reset radios for tf
+        for (let i = 0; i < trueFalseData.length; i++) {
+            const radios = document.getElementsByName(`tf_${i}`);
+            radios.forEach(r => r.checked = false);
+        }
+        // reset matching selects
+        for (let i = 0; i < matchingData.length; i++) {
+            const sel = document.getElementById(`match_${i}`);
+            if (sel) sel.value = "";
+        }
+        // reset mcq radios
+        for (let i = 0; i < mcqData.length; i++) {
+            const radios = document.querySelectorAll(`input[name="mcq_${i}"]`);
+            radios.forEach(r => r.checked = false);
+        }
+        // reset fill inputs
+        for (let i = 0; i < fillData.length; i++) {
+            const inp = document.getElementById(`fill_${i}`);
+            if (inp) inp.value = "";
+        }
+        const resultDiv = document.getElementById('resultPanel');
+        resultDiv.style.display = 'none';
+    }
+
+    // attach events after render
+    window.onload = () => {
+        renderExam();
+        document.getElementById('submitBtn').addEventListener('click', evaluateExam);
+        document.getElementById('resetBtn').addEventListener('click', resetAllAnswers);
+    };
+</script>
+</body>
+</html>
+```
